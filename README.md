@@ -1,24 +1,26 @@
 # Stock Data Analysis & Forecasting (B3 / yfinance)
 
-Coleta, armazena e analisa **dados históricos de ações** (foco no mercado brasileiro/B3) e
-projeta tendências.
+> *Academic / portfolio project — Data Science.*
+
+Collects, stores and analyzes **historical stock data** (focused on the Brazilian market / B3) and projects trends.
 
 ## Pipeline
-1. **Coleta** — baixa o histórico via **`yfinance`** e persiste num banco **SQLite** (`finance.bd`).
-2. **Indicadores** — calcula **médias móveis simples (SMA-20 / SMA-50)** e detalhes do ativo (setor, indústria, moeda).
-3. **Visualização** — gráficos de preço/SMA com **Plotly**.
-4. **Previsão** — projeção de séries temporais com **Prophet** / `statsmodels`.
+1. **Collection** — downloads history via **`yfinance`** and persists it in a **SQLite** database (`finance.bd`).
+2. **Indicators** — computes **simple moving averages (SMA-20 / SMA-50)** and asset details (sector, industry, currency).
+3. **Visualization** — price / SMA charts with **Plotly**.
+4. **Forecasting** — time-series projection with **Prophet** / `statsmodels`.
 
-## Como rodar
+## How to run
 ```bash
 pip install -r requirements.txt
 jupyter notebook stock_data_analysis.ipynb
 ```
-Defina sua lista de `tickers` (ex.: `["AURE3.SA","GGBR4.SA"]`) na célula de configuração.
+Set your list of `tickers` (e.g. `["AURE3.SA","GGBR4.SA"]`) in the configuration cell.
 
-## Possíveis extensões (próximos passos)
-- Mais indicadores técnicos (RSI, MACD, Bollinger) e **backtest** de uma estratégia.
-- **Avaliação** do forecast (MAPE/RMSE em janela de validação) comparando Prophet vs ARIMA.
-- Dashboard interativo (Plotly Dash/Streamlit) como demo hospedado.
+## Roadmap (possible extensions)
+- More technical indicators (RSI, MACD, Bollinger) and a strategy **backtest**.
+- **Forecast evaluation** (MAPE / RMSE on a validation window) comparing Prophet vs ARIMA.
+- Interactive dashboard (Plotly Dash / Streamlit) as a hosted demo.
 
-> Notebook acadêmico/portfólio (Data Science). Outputs limpos; o `.bd` não é versionado.
+## Stack
+Python · yfinance · SQLite · pandas · Plotly · Prophet / statsmodels
