@@ -1,6 +1,7 @@
 yfinance
 pandas
 numpy
+tabulate
 plotly
 prophet
 statsmodels

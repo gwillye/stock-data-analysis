@@ -1,26 +1,38 @@
-# Stock Data Analysis & Forecasting (B3 / yfinance)
+# Stock Data Analysis (B3 / yfinance)
 
-> *Academic / portfolio project — Data Science.*
+Collects and analyzes **Brazilian stock-market data (B3)**: prices, technical
+indicators, **risk/return metrics** and a **return-correlation matrix** across a basket.
 
-Collects, stores and analyzes **historical stock data** (focused on the Brazilian market / B3) and projects trends.
+## ✨ Improvement (real, runnable analysis)
+Beyond the original notebook (price + SMA), this adds **`stock_analysis.py`** — a clean,
+reusable module that computes **total/annualized return, annualized volatility, a
+Sharpe-like ratio, RSI(14)** per ticker and a **daily-return correlation matrix**, then
+writes a markdown report. It was **run on live 1-year data** for a 6-stock basket
+(PETR4, VALE3, ITUB4, BBDC4, GGBR4, AURE3) — see **`RESULTS.md`** for the actual output, e.g.:
 
-## Pipeline
-1. **Collection** — downloads history via **`yfinance`** and persists it in a **SQLite** database (`finance.bd`).
-2. **Indicators** — computes **simple moving averages (SMA-20 / SMA-50)** and asset details (sector, industry, currency).
-3. **Visualization** — price / SMA charts with **Plotly**.
-4. **Forecasting** — time-series projection with **Prophet** / `statsmodels`.
+| ticker | total return | ann. vol | Sharpe-like | RSI(14) |
+|---|---:|---:|---:|---:|
+| VALE3.SA | 0.64 | 0.25 | **2.78** | 50 |
+| GGBR4.SA | 0.38 | 0.26 | 1.65 | 20 *(oversold)* |
+| ITUB4.SA | 0.31 | 0.23 | 1.49 | 85 *(overbought)* |
 
-## How to run
+The correlation matrix recovers intuitive structure (the two banks ITUB4/BBDC4 ≈ **0.79**;
+PETR4 ≈ **0** with the rest; metals VALE3/GGBR4 ≈ **0.50**).
+
+## Files
+- **`stock_analysis.py`** — `fetch_close`, `metrics` (return/vol/Sharpe/RSI), `report` (→ `RESULTS.md`).
+- **`RESULTS.md`** — sample output from a live run (regenerable; market-data dependent).
+- **`stock_data_analysis.ipynb`** — original notebook: yfinance → SQLite → SMA → Plotly → Prophet (outputs cleared).
+
+## Run
 ```bash
 pip install -r requirements.txt
-jupyter notebook stock_data_analysis.ipynb
+python stock_analysis.py          # prints + writes RESULTS.md
 ```
-Set your list of `tickers` (e.g. `["AURE3.SA","GGBR4.SA"]`) in the configuration cell.
 
-## Roadmap (possible extensions)
-- More technical indicators (RSI, MACD, Bollinger) and a strategy **backtest**.
-- **Forecast evaluation** (MAPE / RMSE on a validation window) comparing Prophet vs ARIMA.
-- Interactive dashboard (Plotly Dash / Streamlit) as a hosted demo.
+## Possible extensions
+- Add **Prophet/ARIMA forecasting with a validation window** (MAPE/RMSE) — the notebook scaffolds Prophet.
+- More indicators (MACD, Bollinger) + a simple **backtest** of an SMA-crossover strategy.
+- Interactive **Plotly Dash / Streamlit** dashboard as a hosted demo.
 
-## Stack
-Python · yfinance · SQLite · pandas · Plotly · Prophet / statsmodels
+> Portfolio project (Data Science / quantitative finance). Data fetched at runtime via `yfinance`; DB/outputs not versioned.
